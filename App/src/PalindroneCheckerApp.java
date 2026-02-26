@@ -1,37 +1,28 @@
+import java.util.Scanner;
 public class PalindroneCheckerApp {
 
-    /**
-     * Application entry point for UC2.
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
 
-        String word = "madam";
+        System.out.print("Enter a string to check if it is a palindrome: ");
+        String original = scanner.nextLine();
 
+        String reversed = "";
 
-        word = word.toLowerCase();
-
-        boolean isPalindrome = true;
-
-        int left = 0;
-        int right = word.length() - 1;
-
-
-        while (left < right) {
-            if (word.charAt(left) != word.charAt(right)) {
-                isPalindrome = false;
-                break;
-            }
-            left++;
-            right--;
+        // Iterate the string in reverse order
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed += original.charAt(i);
         }
 
-
-        if (isPalindrome) {
-            System.out.println(word + " is a palindrome.");
+        // Compare original and reversed strings
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("Result: \"" + original + "\" is a palindrome.");
         } else {
-            System.out.println(word + " is NOT a palindrome.");
+            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
         }
+
+        scanner.close();
+
     }
 }
