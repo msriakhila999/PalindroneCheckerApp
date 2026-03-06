@@ -1,33 +1,45 @@
+import java.util.*;
 
-
-import java.util.Scanner;
-
-class PalindroneCheckerApp {
-
-    public boolean checkPalindrome(String input) {
-        int start = 0;
-        int end = input.length() - 1;
-
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
-        }
-        return true;
-    }
-}
-
-public class UseCase11PalindromeCheckerApp {
+public class PalindroneCheckerApp {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter string: ");
         String input = sc.nextLine();
 
-        PalindromeService service = new PalindromeService();
-        boolean result = service.checkPalindrome(input);
+        long start, end;
 
-        System.out.println("Is Palindrome? : " + result);
+
+        start = System.nanoTime();
+        boolean result1 = reverseCheck(input);
+        end = System.nanoTime();
+        System.out.println("Reverse Method Time: " + (end - start) + " ns");
+
+
+        start = System.nanoTime();
+        boolean result2 = twoPointerCheck(input);
+        end = System.nanoTime();
+        System.out.println("Two Pointer Method Time: " + (end - start) + " ns");
+
+        System.out.println(result1 && result2 ? "Palindrome" : "Not a Palindrome");
+        sc.close();
+    }
+
+    private static boolean reverseCheck(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
+    }
+
+    private static boolean twoPointerCheck(String str) {
+        int left = 0, right = str.length() - 1;
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 }
